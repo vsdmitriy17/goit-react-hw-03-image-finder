@@ -3,23 +3,24 @@ import styles from './App.module.css';
 import ImageGallery from './components/imageGallery/ImageGallery.jsx';
 import Searchbar from './components/searchbar/Searchbar.jsx';
 import SearchForm from './components/searchForm/SearchForm.jsx';
-import ImageGalleryItem from './components/imageGalleryItem/ImageGalleryItem.jsx';
 import Loader from './components/loader/Loader.jsx';
-// import Modal from './components/modal/Modal.jsx';
+import Modal from './components/modal/Modal.jsx';
 import Button from './components/button/Button.jsx';
 
 class App extends Component {
     state = {
-        contacts: [],
-        filter: ''
+        qwery: "",
+        showModal: false,
     }
 
-    // formSubmit = data => {
-    //     this.setState(prevState => {
-    //         const isNameExist = prevState.contacts.find(contact => contact.name === data.name);
-    //         return (isNameExist ? alert(`${data.name} is already in contacts`) : {...prevState, contacts: [data, ...prevState.contacts]}); 
-    //     })
-    // }
+    toggleModal = () => {
+        this.setState(prevState =>
+            ({ showModal: !prevState.showModal }));
+    };
+
+    formSubmit = data => {
+        this.setState({ qwery: data.qwery })
+    }
 
     // deleteContact = (currentId) => {
     //     this.setState(prevState => {
@@ -43,19 +44,20 @@ class App extends Component {
     // }
     
     render() {
+        const { showModal } = this.state;
 
         return (
-            <div className={styles.app}>
+            <>
                 <Searchbar>
-                    <SearchForm />
+                    <SearchForm onSubmit={this.formSubmit} />
                 </Searchbar>
-                <Loader />
-                <ImageGallery>
-                    <ImageGalleryItem />
-                </ImageGallery>
-                <Button />
-                {/* <Modal /> */}
-            </div>
+                <main className={styles.app}>
+                    <Loader />
+                    <ImageGallery qwery={this.state.qwery} onClickItem={this.toggleModal} />
+                    <Button />
+                    {showModal && <Modal onClickClose={this.toggleModal} />}
+                </main>
+            </>
         );
     };
 };
