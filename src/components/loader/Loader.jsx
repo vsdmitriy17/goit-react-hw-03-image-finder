@@ -1,10 +1,13 @@
 import styles from './Loader.module.css';
+import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 
-export default function Loader({ contacts, onDeleteContact }) {
-    return (
-        <button type="button" className={styles.gallery_item}>Loader</button>
-    );
+export default class Loader extends Component {
+    render() {
+        return (
+            <p className={styles.loader}>Load...</p>
+        );
+    }
 };
 
 // Loader.propTypes = {

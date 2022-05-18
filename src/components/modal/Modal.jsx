@@ -35,8 +35,7 @@ export default class Modal extends Component {
                     <button type="button" className={styles.modalBtn} onClick={() => { this.props.onClickClose() }} area-label="Close">
                         <CloseIcon width="30" height="30" fill="black" />
                     </button>
-                    <img src="" alt="" />
-                    {this.props.children}
+                    <img src={this.props.largeImg} alt={this.props.tags} className={styles.modalImg} />
                 </div>
             </div>,
             modalRoot

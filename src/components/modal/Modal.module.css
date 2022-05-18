@@ -13,9 +13,11 @@
 
 .modal {
     position: relative;
-    width: 300px;
-    height: 400px;
-    background-color: white;
+    /* width: 300px;
+    height: 400px; */
+    border: 1px solid rgb(142, 142, 235);
+    border-radius: 5px;
+    overflow: hidden;
     /* max-width: calc(100vw - 48px);
     max-height: calc(100vh - 24px); */
 }
@@ -43,4 +45,8 @@
 
 .modalBtn:hover, .modalBtn:focus {
     opacity: 1;
+}
+
+.modalImg {
+    width: 800px;
 }

@@ -9,14 +9,30 @@ import Button from './components/button/Button.jsx';
 
 class App extends Component {
     state = {
+        showLoader: false,
         qwery: "",
         showModal: false,
+        largeImg: "",
+        tags: ""
     }
 
     toggleModal = () => {
         this.setState(prevState =>
             ({ showModal: !prevState.showModal }));
     };
+
+    toggleLoader = () => {
+        this.setState(prevState =>
+            ({ showLoader: !prevState.showLoader }));
+    };
+
+    onImgClick = (imgURL, tags) => {
+        this.setState({
+            largeImg: imgURL,
+            tags: tags
+        });
+        this.toggleModal();
+    }
 
     formSubmit = data => {
         this.setState({ qwery: data.qwery })
@@ -44,18 +60,18 @@ class App extends Component {
     // }
     
     render() {
-        const { showModal } = this.state;
+        const { showLoader, showModal } = this.state;
 
         return (
             <>
                 <Searchbar>
                     <SearchForm onSubmit={this.formSubmit} />
                 </Searchbar>
-                <main className={styles.app}>
-                    <Loader />
-                    <ImageGallery qwery={this.state.qwery} onClickItem={this.toggleModal} />
+                <main className={styles.container}>
+                    {showLoader && <Loader />}
+                    <ImageGallery qwery={this.state.qwery} onClickItem={this.onImgClick} onSearchSubmit={this.toggleLoader}/>
                     <Button />
-                    {showModal && <Modal onClickClose={this.toggleModal} />}
+                    {showModal && <Modal onClickClose={this.toggleModal} largeImg={this.state.largeImg} tags={this.state.tags} />}
                 </main>
             </>
         );

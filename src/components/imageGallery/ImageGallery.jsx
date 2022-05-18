@@ -19,28 +19,52 @@ export default class ImageGallery extends Component {
         images: [],
         totalImg: 0,
         totalPages: 0,
+        error: null,
     }
 
     async componentDidUpdate(prevProps, prevState) {
-        if (prevProps.qwery !== this.props.qwery) {
-            const dataObject = await axios.get(`${this.BASE_URL}?q=${this.props.qwery}&page=${this.state.page}&${this.API_KEY}&image_type=photo&orientation=horizontal&per_page=12`); // запрос через библ. axios
-            console.log(dataObject.data.hits);
+        try {
+            if (prevProps.qwery !== this.props.qwery) {
+                this.setState({
+                    page: 1,
+                    images: [],
+                    totalImg: 0,
+                    totalPages: 0,
+                    error: null,
+                });
 
-            this.setState(prevState => ({
-                page: prevState.page + 1,
-                images: dataObject.data.hits,
-                totalImg: dataObject.data.total,
-                totalPages: dataObject.data.totalHits,
-            }))
-        }
+                // prevProps.onSearchSubmit();
+
+                const dataObject = await axios.get(`${this.BASE_URL}?q=${this.props.qwery}&page=${this.state.page}&${this.API_KEY}&image_type=photo&orientation=horizontal&per_page=12`); // запрос через библ. axios
+                console.log(dataObject.data.hits);
+
+                (dataObject.data.hits.length !== 0) ? this.setState(prevState => ({
+                    page: prevState.page + 1,
+                    images: dataObject.data.hits,
+                    totalImg: dataObject.data.total,
+                    totalPages: dataObject.data.totalHits,
+                })) : alert("Sorry, there is no such qwery.");
+            }
+        } catch (error) {
+            this.setState({error});
+        } finally {
+            // prevProps.onSearchSubmit();
+        };
     }
 
     render() {
         return (
             <ul className={styles.gallery}>
-                {this.state.images.map(img => {
+                {this.state.error ? alert("ERROR!") : 
+                this.state.images.map(img => {
                     const { id, largeImageURL, tags, webformatURL} = img;
-                    return <ImageGalleryItem onClickItem={this.props.onClickItem} key={id} largeImageURL={largeImageURL} tags={tags} webformatURL={webformatURL}/>
+                    return <ImageGalleryItem
+                        onClickItem={this.props.onClickItem}
+                        key={id}
+                        largeImageURL={largeImageURL}
+                        tags={tags}
+                        webformatURL={webformatURL}
+                    />
                 })}
             </ul>
         );
