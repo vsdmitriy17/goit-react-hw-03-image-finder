@@ -6,7 +6,7 @@ import Loader from '../loader/Loader.jsx';
 import Modal from '../modal/Modal.jsx';
 import StartSearch from '../startSearch/StartSearch.jsx';
 import { apiService } from '../apiService/apiService.js';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export default class ImageGallery extends Component {
     state = {
@@ -132,7 +132,6 @@ export default class ImageGallery extends Component {
     }
 };
 
-// ImageGallery.propTypes = {
-//     contacts: PropTypes.array.isRequired,
-//     onDeleteContact: PropTypes.func.isRequired,
-// }
+ImageGallery.propTypes = {
+    qwery: PropTypes.string.isRequired,
+}

@@ -1,6 +1,6 @@
 import styles from './ImageGalleryItem.module.css';
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export default class ImageGalleryItem extends Component {
     render() {
@@ -18,7 +18,7 @@ export default class ImageGalleryItem extends Component {
     }
 };
 
-// ImageGalleryItem.propTypes = {
-//     value: PropTypes.string.isRequired,
-//     onChangeFilter: PropTypes.func.isRequired,
-// }
+ImageGalleryItem.propTypes = {
+    data: PropTypes.object.isRequired,
+    onClickItem: PropTypes.func.isRequired,
+}

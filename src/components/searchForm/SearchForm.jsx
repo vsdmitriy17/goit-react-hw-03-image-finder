@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styles from './SearchForm.module.css';
 import { ReactComponent as SearchIcon } from '../icons/search.svg';
+import PropTypes from 'prop-types';
 
 class SearchForm extends Component {
     state = {
@@ -49,5 +50,9 @@ class SearchForm extends Component {
         );
     }
 };
+
+SearchForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+}
 
 export default SearchForm;

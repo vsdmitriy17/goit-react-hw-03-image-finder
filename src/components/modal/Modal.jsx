@@ -2,7 +2,7 @@ import styles from './Modal.module.css';
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
 import {ReactComponent as CloseIcon} from '../icons/x-circle.svg';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const modalRoot = document.querySelector("#modal-root");
 
@@ -43,7 +43,8 @@ export default class Modal extends Component {
     }
 };
 
-// Modal.propTypes = {
-//     value: PropTypes.string.isRequired,
-//     onChangeFilter: PropTypes.func.isRequired,
-// }
+Modal.propTypes = {
+    largeImg: PropTypes.string.isRequired,
+    tags: PropTypes.string.isRequired,
+    onClickClose: PropTypes.func.isRequired,
+}

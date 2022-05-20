@@ -1,5 +1,5 @@
 import styles from './Button.module.css';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export default function Button({ onLoadClick }) {
     return (
@@ -7,7 +7,6 @@ export default function Button({ onLoadClick }) {
     );
 };
 
-// Button.propTypes = {
-//     contacts: PropTypes.array.isRequired,
-//     onDeleteContact: PropTypes.func.isRequired,
-// }
+Button.propTypes = {
+    onLoadClick: PropTypes.func.isRequired,
+}
