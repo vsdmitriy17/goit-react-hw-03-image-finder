@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styles from './App.module.css';
 import ImageGallery from './components/imageGallery/ImageGallery.jsx';
 import Searchbar from './components/searchbar/Searchbar.jsx';
 import SearchForm from './components/searchForm/SearchForm.jsx';
@@ -15,12 +14,6 @@ class App extends Component {
         })
     }
 
-    // formSubmitNone = data => {
-    //     this.setState({
-    //         qwery: "",
-    //     })
-    // }
-
     
     render() {
         return (
@@ -28,9 +21,7 @@ class App extends Component {
                 <Searchbar>
                     <SearchForm onSubmit={this.formSubmit} />
                 </Searchbar>
-                <main className={styles.container}>
-                    <ImageGallery qwery={this.state.qwery} />
-                </main>
+                <ImageGallery qwery={this.state.qwery} />
             </>
         );
     };

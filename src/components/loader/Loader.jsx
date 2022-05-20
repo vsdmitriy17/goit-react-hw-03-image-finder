@@ -1,16 +1,11 @@
-import styles from './Loader.module.css';
 import React, { Component } from 'react';
+import { TailSpin } from  'react-loader-spinner'
 // import PropTypes from 'prop-types';
 
 export default class Loader extends Component {
     render() {
         return (
-            <p className={styles.loader}>Load...</p>
+            <TailSpin color="#3f51b5" height={200} width={200} />
         );
     }
 };
-
-// Loader.propTypes = {
-//     contacts: PropTypes.array.isRequired,
-//     onDeleteContact: PropTypes.func.isRequired,
-// }
