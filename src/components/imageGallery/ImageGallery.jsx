@@ -22,9 +22,9 @@ export default class ImageGallery extends Component {
     async componentDidUpdate(prevProps, prevState) {
         try {
             if (prevProps.qwery !== this.props.qwery) {
-                await this.setState({
+                this.setState({
                     showModal: false,
-                    page: 1,
+                    page: this.props.startPage,
                     images: [],
                     largeImg: "",
                     tags: "",
@@ -32,40 +32,36 @@ export default class ImageGallery extends Component {
                     status: "pending"
                 });
 
-                const dataObject = await apiService(this.props.qwery, this.state.page);
+                const dataObject = await apiService(this.props.qwery, this.props.startPage);
 
-                (dataObject.data.hits.length !== 0) ? await this.setState({
+                (dataObject.data.hits.length !== 0) ? this.setState({
                     images: dataObject.data.hits,
                     totalImg: dataObject.data.totalHits,
                     status: "resolve"
-                }) : await this.setState({
+                }) : this.setState({
                     status: "noneQwery"
-                });
+                })
+            } else if ((prevState.page !== this.state.page) && (this.state.page !== 1)) {
+                const dataObject = await apiService(this.props.qwery, this.state.page);
+
+                this.setState(prevState => ({
+                    images: [...prevState.images, ...dataObject.data.hits],
+                    totalImg: dataObject.data.totalHits,
+                    status: "resolve"
+                }))
             }
         } catch (error) {
-            await this.setState({
+            this.setState({
                 status: "error"
             });
         }
     }
 
-    onLoadMoreClick = async () => {
-
-        try {
-            await this.setState(prevState => ({
-                page: prevState.page + 1,
-                status: "pending"
-            }));
-            const dataObject = await apiService(this.props.qwery, this.state.page);
-
-            await this.setState(prevState => ({
-                images: [...prevState.images, ...dataObject.data.hits],
-                totalImg: dataObject.data.totalHits,
-                status: "resolve"
-            }))
-        } catch (error) {
-            await this.setState({status: "error"});
-        }
+    onLoadMoreClick = () => {
+        this.setState(prevState => ({
+            page: prevState.page + 1,
+            status: "pending"
+        }));
     }
 
     toggleModal = () => {

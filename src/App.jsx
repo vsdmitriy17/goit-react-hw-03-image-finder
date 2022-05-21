@@ -6,11 +6,12 @@ import SearchForm from './components/searchForm/SearchForm.jsx';
 class App extends Component {
     state = {
         qwery: "",
+        startPage: 1
     }
 
     formSubmit = data => {
         this.setState({
-            qwery: data.qwery,
+            qwery: data.qwery
         })
     }
 
@@ -21,7 +22,7 @@ class App extends Component {
                 <Searchbar>
                     <SearchForm onSubmit={this.formSubmit} />
                 </Searchbar>
-                <ImageGallery qwery={this.state.qwery} />
+                <ImageGallery qwery={this.state.qwery} startPage={this.state.startPage}/>
             </>
         );
     };
