@@ -130,4 +130,5 @@ export default class ImageGallery extends Component {
 
 ImageGallery.propTypes = {
     qwery: PropTypes.string.isRequired,
+    startPage: PropTypes.number.isRequired,
 }
